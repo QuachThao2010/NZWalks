@@ -23,21 +23,21 @@ namespace NZWalks.API.Controllers
         {
             var regions = await regionRepository.GetAllAsync();
 
-            var regionsDTO = mapper.Map<List<Models.DTO.Regoin>>(regions);
+            var regionsDTO = mapper.Map<List<Models.DTO.Region>>(regions);
             return Ok(regionsDTO);
         }
 
         [HttpGet]
         [Route("{id:guid}")]
-        [ActionName("GetResultAsync")]
-        public async Task<IActionResult> GetResultAsync(Guid id)
+        [ActionName("GetRegionAsync")]
+        public async Task<IActionResult> GetRegionAsync(Guid id)
         {
             var region = await regionRepository.GetAsync(id);
             if (region==null)
             {
                 return NotFound();
             }
-            var regionDTO = mapper.Map<Models.DTO.Regoin>(region);
+            var regionDTO = mapper.Map<Models.DTO.Region>(region);
 
             return Ok(regionDTO);
         }
@@ -56,7 +56,7 @@ namespace NZWalks.API.Controllers
             };
             region = await regionRepository.AddAsync(region);
 
-            var regionDTO = new Models.DTO.Regoin()
+            var regionDTO = new Models.DTO.Region()
             {
                 Id = region.Id,
                 Code = region.Code,
@@ -67,7 +67,7 @@ namespace NZWalks.API.Controllers
                 population = region.population
             };
             
-            return CreatedAtAction(nameof(GetResultAsync), new {id = regionDTO.Id}, regionDTO);
+            return CreatedAtAction(nameof(GetRegionAsync), new {id = regionDTO.Id}, regionDTO);
         }
 
         [HttpDelete]
@@ -81,7 +81,7 @@ namespace NZWalks.API.Controllers
                 return NotFound();
             }
 
-            var regionDTO = mapper.Map<Models.DTO.Regoin>(region);
+            var regionDTO = mapper.Map<Models.DTO.Region>(region);
 
             return Ok(regionDTO);
         }
@@ -106,7 +106,7 @@ namespace NZWalks.API.Controllers
                 return NotFound();
             }
 
-            var regionDTO = mapper.Map<Models.DTO.Regoin>(region);
+            var regionDTO = mapper.Map<Models.DTO.Region>(region);
 
             return Ok(regionDTO);
         }
